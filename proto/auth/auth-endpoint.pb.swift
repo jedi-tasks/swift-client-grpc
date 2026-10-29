@@ -76,6 +76,9 @@ public struct Auth_DeviceInformation: Sendable {
   /// IP адрес
   public var ipAddress: String = String()
 
+  /// Устройство без локальной копии данных: всегда читает сервер перед записью, проверка синхронизации перед правками не нужна
+  public var stateless: Bool = false
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -465,6 +468,7 @@ extension Auth_DeviceInformation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     3: .same(proto: "nameOS"),
     4: .same(proto: "versionOS"),
     5: .same(proto: "ipAddress"),
+    6: .same(proto: "stateless"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -478,6 +482,7 @@ extension Auth_DeviceInformation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       case 3: try { try decoder.decodeSingularEnumField(value: &self.nameOs) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.versionOs) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.ipAddress) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.stateless) }()
       default: break
       }
     }
@@ -499,6 +504,9 @@ extension Auth_DeviceInformation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if !self.ipAddress.isEmpty {
       try visitor.visitSingularStringField(value: self.ipAddress, fieldNumber: 5)
     }
+    if self.stateless != false {
+      try visitor.visitSingularBoolField(value: self.stateless, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -508,6 +516,7 @@ extension Auth_DeviceInformation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if lhs.nameOs != rhs.nameOs {return false}
     if lhs.versionOs != rhs.versionOs {return false}
     if lhs.ipAddress != rhs.ipAddress {return false}
+    if lhs.stateless != rhs.stateless {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

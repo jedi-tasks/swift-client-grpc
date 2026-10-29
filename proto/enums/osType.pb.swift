@@ -28,6 +28,9 @@ public enum OsType_OSType: SwiftProtobuf.Enum, Swift.CaseIterable {
   case ipadOs // = 3
   case osx // = 4
   case watchOs // = 5
+
+  /// Устройство на стороне сервера, например MCP
+  case server // = 6
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -42,6 +45,7 @@ public enum OsType_OSType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 3: self = .ipadOs
     case 4: self = .osx
     case 5: self = .watchOs
+    case 6: self = .server
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -54,6 +58,7 @@ public enum OsType_OSType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .ipadOs: return 3
     case .osx: return 4
     case .watchOs: return 5
+    case .server: return 6
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -66,6 +71,7 @@ public enum OsType_OSType: SwiftProtobuf.Enum, Swift.CaseIterable {
     .ipadOs,
     .osx,
     .watchOs,
+    .server,
   ]
 
 }
@@ -80,5 +86,6 @@ extension OsType_OSType: SwiftProtobuf._ProtoNameProviding {
     3: .same(proto: "IPadOS"),
     4: .same(proto: "OSX"),
     5: .same(proto: "WatchOS"),
+    6: .same(proto: "Server"),
   ]
 }
